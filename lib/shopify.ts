@@ -1,10 +1,10 @@
 import { GraphQLClient, gql } from "graphql-request";
 
-// Shopify dev store domain and storefront token from environment variables
+// Store domain + storefront token
 const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN!;
 const token = process.env.NEXT_PUBLIC_STOREFRONT_ACCESS_TOKEN!;
 
-// GraphQL client to communicate with Shopify Storefront API
+// Shopify GraphQL client
 export const client = new GraphQLClient(
   `https://${domain}/api/2025-01/graphql.json`,
   {
@@ -15,7 +15,7 @@ export const client = new GraphQLClient(
   }
 );
 
-// GraphQL query to fetch first 5 products with basic info
+// GraphQL: Fetch products
 export const GET_PRODUCTS_QUERY = gql`
   query getProducts($first: Int!) {
     products(first: $first) {
@@ -48,7 +48,7 @@ export const GET_PRODUCTS_QUERY = gql`
   }
 `;
 
-// TypeScript types
+// TS types
 export interface ProductImage {
   node: {
     url: string;
@@ -76,7 +76,5 @@ export interface ProductNode {
 }
 
 export interface ProductsResponse {
-  products: {
-    edges: ProductNode[];
-  };
+  products: { edges: ProductNode[] };
 }
